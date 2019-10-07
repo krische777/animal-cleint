@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {addUser} from '../action'
 import SignupForm from './SignupForm'
 
+
 class SignupFormContainer extends Component {
   state = {
     firstName:'', email: '', password: '' }
@@ -10,11 +11,12 @@ class SignupFormContainer extends Component {
   onSubmit = (event) => {
     event.preventDefault()
     this.props.addUser(this.state.firstName, this.state.email, this.state.password)
-    this.setState({
-      firstName:'',
-      email: '',
-      password: '',
-    })
+    
+  
+    
+    if(this.props.user) {
+    this.props.history.push('/login')
+    }
   }
 
   onChange = (event) => {
@@ -30,6 +32,7 @@ class SignupFormContainer extends Component {
           onSubmit={this.onSubmit}
           onChange={this.onChange}
           values={this.state} />
+        
         
       </div>
     )

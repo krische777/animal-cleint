@@ -34,8 +34,11 @@ export const addUser = (firstName, email, password) => (dispatch) =>{
     .post(`${url}/signup`)
     .send({firstName, email, password })
     .then(res => {
+      console.log('inside then')
       const action = signUp(res.body)
       dispatch(action)
+      this.props.history.push('/login')
+
     })
     .catch(console.error)
 }
