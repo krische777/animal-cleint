@@ -3,7 +3,6 @@ export const LOG_IN = 'LOG_IN'
 export const ADD_USER = 'ADD_USER'
 const url = 'http://localhost:8888'
 
-
 function login(payload) {
   return {
     type: LOG_IN,
@@ -29,16 +28,17 @@ function signUp(payload) {
   }
 }
 
-export const addUser = (firstName, email, password) => (dispatch) =>{
+export const addUser = (firstName, email, password) => (dispatch) => {
   request
     .post(`${url}/signup`)
-    .send({firstName, email, password })
+    .send({ firstName, email, password })
     .then(res => {
-      console.log('inside then')
-      const action = signUp(res.body)
+      // const status = res.status
+      // dispatch(status)
+      const action=signUp(res.body)
       dispatch(action)
-      this.props.history.push('/login')
-
+      console.log('success')
+    }).catch(error=>{
+      console.log(error)
     })
-    .catch(console.error)
 }

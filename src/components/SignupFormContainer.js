@@ -11,12 +11,11 @@ class SignupFormContainer extends Component {
   onSubmit = (event) => {
     event.preventDefault()
     this.props.addUser(this.state.firstName, this.state.email, this.state.password)
-    
-  
-    
-    if(this.props.user) {
-    this.props.history.push('/login')
+    if(this.props.status==200){
+      this.props.history.push('/login')
     }
+    this.setState({firstName:'', email: '', password: '' })
+    console.log('this props user ', this.props.user)
   }
 
   onChange = (event) => {
@@ -31,16 +30,14 @@ class SignupFormContainer extends Component {
         <SignupForm
           onSubmit={this.onSubmit}
           onChange={this.onChange}
-          values={this.state} />
-        
-        
+          values={this.state} />    
       </div>
     )
   }
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.reducer
+    user: state.signupReducer
   }
 }
 
