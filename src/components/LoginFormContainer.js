@@ -13,6 +13,7 @@ class LoginFormContainer extends Component {
       email: '',
       password: '',
     })
+    this.props.history.push('/lobby')
   }
 
   onChange = (event) => {

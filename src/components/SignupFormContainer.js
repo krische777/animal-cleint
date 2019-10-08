@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {addUser} from '../action'
 import SignupForm from './SignupForm'
+import { Redirect } from 'react-router-dom'
+
 
 class SignupFormContainer extends Component {
   state = {
@@ -9,12 +11,12 @@ class SignupFormContainer extends Component {
 
   onSubmit = (event) => {
     event.preventDefault()
-    this.props.addUser(this.state.firstName, this.state.email, this.state.password)
-    this.setState({
-      firstName:'',
-      email: '',
-      password: '',
-    })
+    this.props.addUser(this.state.firstName, this.state.email, this.state.password) // takes a while
+    //if(this.props.status===200){
+      // this.props.history.push('/login') // sync 
+    //}
+    this.setState({firstName:'', email: '', password: '' })
+    console.log('this props user ', this.props.user)
   }
 
   onChange = (event) => {
@@ -24,20 +26,23 @@ class SignupFormContainer extends Component {
   }
 
   render() {
+    if(this.props.user.email){
+      return <Redirect to="/login"/>
+    }
+
     return (
       <div>
         <SignupForm
           onSubmit={this.onSubmit}
           onChange={this.onChange}
-          values={this.state} />
-        
+          values={this.state} />    
       </div>
     )
   }
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.reducer
+    user: state.signupReducer
   }
 }
 
