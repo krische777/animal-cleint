@@ -17,10 +17,14 @@ export const userLogin = (email, password) => (dispatch) => {
     .post(`${url}/login`)
     .send({ email, password })
     .then(res => {
+      console.log('log res:', res.body)
       const action = login(res.body)
       dispatch(action)
     })
-    .catch(console.error)
+    .catch(error => {
+      // console.error;
+      console.log('error:', error.response.body) 
+    })
 }
 
 function signUp(payload) {
@@ -62,12 +66,18 @@ export const addRoom = (roomName) => (dispatch, getState) => {
     .set('Authorization', `Bearer ${jwt}`)
     .send({ name: roomName})
     .then(res => {
-      const action = room(res.body)
-      //console.log(res.body)
-      dispatch(action)
+      //const action = room(res.body)
+      console.log(res.body)
+      //dispatch(action)
     })
     .catch(console.error)
 }
+
+export const UPDATE_ROOMS = 'UPDATE_ROOMS'
+export const updateRooms = (payload) => ({
+    type: UPDATE_ROOMS,
+    payload
+})
 
 
 function getRoomsAction(payload) {

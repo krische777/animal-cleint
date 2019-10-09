@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import LoginForm from './LoginForm'
 import { connect } from 'react-redux'
 import {userLogin} from '../action'
+import {Redirect} from 'react-router-dom'
 
 class LoginFormContainer extends Component {
   state = { email: '', password: '' }
@@ -13,7 +14,7 @@ class LoginFormContainer extends Component {
       email: '',
       password: '',
     })
-    this.props.history.push('/lobby')
+    // this.props.history.push('/lobby')
   }
 
   onChange = (event) => {
@@ -24,18 +25,21 @@ class LoginFormContainer extends Component {
 
   render() {
     return (
-      <div>
-        <LoginForm
-          onSubmit={this.onSubmit}
-          onChange={this.onChange}
-          values={this.state} />
-      </div>
+      (this.props.loginReducer.jwt) ? 
+        <Redirect to='/lobby'/>
+      :
+        <div>
+          <LoginForm
+            onSubmit={this.onSubmit}
+            onChange={this.onChange}
+            values={this.state} />
+        </div> 
     )
   }
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.reducer
+    loginReducer: state.loginReducer
   }
 }
 export default connect(mapStateToProps, {userLogin})(LoginFormContainer)

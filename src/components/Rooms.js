@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export default class Rooms extends Component {
   render() {
-    console.log('available rooms',JSON.stringify(this.props.roomState))
+    // console.log('available rooms',JSON.stringify(this.props.roomState))
     return (
       <div>
         <h3>Available rooms: You can join by clicking on the room name</h3>
