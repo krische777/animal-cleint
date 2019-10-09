@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Rooms from './Rooms'
 import { connect } from 'react-redux'
 import {addRoom} from '../action'
-
+import {getRooms} from '../action'
 
 class RoomsContainer extends Component {
   state={roomName:''}
@@ -19,6 +19,10 @@ class RoomsContainer extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
+  }
+
+  componentDidMount() {
+    this.props.getRooms();
   }
 
   render() {
@@ -47,4 +51,4 @@ const mapStateToProps =(state)=>{
 
 }
 
-export default connect(mapStateToProps, {addRoom})(RoomsContainer)
+export default connect(mapStateToProps, {addRoom, getRooms})(RoomsContainer)

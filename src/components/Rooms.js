@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 
 export default class Rooms extends Component {
   render() {
-    console.log(this.props.roomState)
+    console.log('available rooms',JSON.stringify(this.props.roomState))
     return (
       <div>
-        <h3>Create a new room</h3>
-
+        <h3>Available rooms: You can join by clicking on the room name</h3>
         <ul>{this.props.roomState.map(room=> {
-          return <li>{room.name}</li>
+          return <li key={room.id}>{room.name}</li>
         })}</ul>
+        <h3>Create a new room</h3>
 
         <form onSubmit={this.props.onSubmit}>
           
