@@ -1,6 +1,8 @@
 import request from 'superagent'
 export const LOG_IN = 'LOG_IN'
 export const ADD_USER = 'ADD_USER'
+export const ADD_ROOM = 'ADD_ROOM'
+export const GET_ROOMS = 'GET_ROOMS'
 const url = 'http://localhost:8888'
 
 function login(payload) {
@@ -41,4 +43,52 @@ export const addUser = (firstName, email, password) => (dispatch) => {
     }).catch(error=>{
       console.log(error)
     })
+}
+
+function room(payload) {
+  return {
+    type: ADD_ROOM,
+    payload: payload
+  }
+}
+
+export const addRoom = (roomName) => (dispatch, getState) => {
+  const state=getState()
+  const {jwt}=state.loginReducer
+  console.log('addRoom state', state.loginReducer.jwt)
+
+  request
+    .post(`${url}/room`)
+    .set('Authorization', `Bearer ${jwt}`)
+    .send({ name: roomName})
+    .then(res => {
+      const action = room(res.body)
+      //console.log(res.body)
+      dispatch(action)
+    })
+    .catch(console.error)
+}
+
+
+function getRoomsAction(payload) {
+  return {
+    type: GET_ROOMS,
+    payload: payload
+  }
+}
+
+export const getRooms = () => (dispatch, getState) => {
+  const state=getState()
+  const {jwt}=state.loginReducer
+  console.log('getRooms state', state.loginReducer.jwt)
+
+  request
+    .get(`${url}/room`)
+    .set('Authorization', `Bearer ${jwt}`)
+    .then(res => {
+      const action = getRoomsAction(res.body)
+      //console.log(res.body)
+      dispatch(action)
+    })
+    .catch(console.error)
 }
