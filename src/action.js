@@ -3,6 +3,7 @@ export const LOG_IN = 'LOG_IN'
 export const ADD_USER = 'ADD_USER'
 export const ADD_ROOM = 'ADD_ROOM'
 export const GET_ROOMS = 'GET_ROOMS'
+export const JOIN_ROOM='JOIN_ROOM'
 const url = 'http://localhost:8888'
 
 function login(payload) {
@@ -17,10 +18,14 @@ export const userLogin = (email, password) => (dispatch) => {
     .post(`${url}/login`)
     .send({ email, password })
     .then(res => {
+      console.log('log res:', res.body)
       const action = login(res.body)
       dispatch(action)
     })
-    .catch(console.error)
+    .catch(error => {
+      // console.error;
+      console.log('error:', error.response.body) 
+    })
 }
 
 function signUp(payload) {
@@ -62,12 +67,18 @@ export const addRoom = (roomName) => (dispatch, getState) => {
     .set('Authorization', `Bearer ${jwt}`)
     .send({ name: roomName})
     .then(res => {
-      const action = room(res.body)
-      //console.log(res.body)
-      dispatch(action)
+      //const action = room(res.body)
+      console.log(res.body)
+      //dispatch(action)
     })
     .catch(console.error)
 }
+
+export const UPDATE_ROOMS = 'UPDATE_ROOMS'
+export const updateRooms = (payload) => ({
+    type: UPDATE_ROOMS,
+    payload
+})
 
 
 function getRoomsAction(payload) {
@@ -91,4 +102,28 @@ export const getRooms = () => (dispatch, getState) => {
       dispatch(action)
     })
     .catch(console.error)
+}
+
+function joinRoomAction(payload) {
+  return {
+    type: JOIN_ROOM,
+    payload:payload
+  }
+}
+
+export const joinRoom=(room_name, user_id)=>(dispatch, getState)=>{
+  console.log('roomname and playerid in joinroom', room_name, user_id)
+  const state=getState()
+  const {jwt}=state.loginReducer
+
+  request
+     .put(`${url}/room`)
+     .set('Authorization', `Bearer ${jwt}`)
+     .send({roomName:room_name, userId: user_id})
+     .then(res=> {
+       const action=joinRoomAction(res.body)
+       dispatch(action)
+     })
+     .catch(console.error)
+
 }
