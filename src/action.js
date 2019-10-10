@@ -3,6 +3,10 @@ export const LOG_IN = 'LOG_IN'
 export const ADD_USER = 'ADD_USER'
 export const ADD_ROOM = 'ADD_ROOM'
 export const GET_ROOMS = 'GET_ROOMS'
+export const ATTACK = "ATTACK"
+export const DEFENSE = "DEFENSE"
+export const EVADE = "EVADE"
+
 const url = 'http://localhost:8888'
 
 function login(payload) {
@@ -92,3 +96,65 @@ export const getRooms = () => (dispatch, getState) => {
     })
     .catch(console.error)
 }
+
+function attack(payload) {
+  return {
+    type: ATTACK,
+    payload: payload
+  }
+}
+
+export const userAttack = (HP,SP) => (dispatch) => {
+  request
+    .put(`${url}/game`)
+    .set({ HP, SP })
+    .then(res => {
+      const action = attack(res.body)
+      dispatch(action)
+    })
+    .catch(console.error)
+}
+
+function defense(payload) {
+  return {
+    type: DEFENSE,
+    payload: payload
+  }
+}
+
+export const userDefense = (HP,SP) => (dispatch) => {
+  request
+    .put(`${url}/game`)
+    .set({ HP, SP })
+    .then(res => {
+      const action = defense(res.body)
+      dispatch(action)
+    })
+    .catch(console.error)
+}
+
+function evade(payload) {
+  return {
+    type: EVADE,
+    payload: payload
+  }
+}
+
+export const userEvade = (HP,SP) => (dispatch) => {
+  request
+    .put(`${url}/game`)
+    .set({ HP, SP })
+    .then(res => {
+      const action = evade(res.body)
+      dispatch(action)
+    })
+    .catch(console.error)
+}
+
+// export const toggle = () => ({
+//   type: TOGGLE,
+//   payload: {
+//       redirect:true
+//   }
+// })
+// export const TOGGLE = 'TOGGLE';

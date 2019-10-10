@@ -5,7 +5,7 @@ export default class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Find Animals</h1>
+        <h1> Let's Fight!</h1>
         <button><Link to="/signup">Create new account</Link></button>
         <button><Link to="/login">login</Link></button>
       </div>
