@@ -3,6 +3,7 @@ export const LOG_IN = 'LOG_IN'
 export const ADD_USER = 'ADD_USER'
 export const ADD_ROOM = 'ADD_ROOM'
 export const GET_ROOMS = 'GET_ROOMS'
+export const JOIN_ROOM='JOIN_ROOM'
 const url = 'http://localhost:8888'
 
 function login(payload) {
@@ -101,4 +102,28 @@ export const getRooms = () => (dispatch, getState) => {
       dispatch(action)
     })
     .catch(console.error)
+}
+
+function joinRoomAction(payload) {
+  return {
+    type: JOIN_ROOM,
+    payload:payload
+  }
+}
+
+export const joinRoom=(room_name, user_id)=>(dispatch, getState)=>{
+  console.log('roomname and playerid in joinroom', room_name, user_id)
+  const state=getState()
+  const {jwt}=state.loginReducer
+
+  request
+     .put(`${url}/room`)
+     .set('Authorization', `Bearer ${jwt}`)
+     .send({roomName:room_name, userId: user_id})
+     .then(res=> {
+       const action=joinRoomAction(res.body)
+       dispatch(action)
+     })
+     .catch(console.error)
+
 }

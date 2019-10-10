@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import Rooms from './Rooms'
 import { connect } from 'react-redux'
-import {addRoom, getRooms, updateRooms} from '../action'
+import {addRoom, getRooms, updateRooms, joinRoom} from '../action'
 import { Redirect } from 'react-router-dom'
 
 class RoomsContainer extends Component {
   state={roomName:''}
+  //should put the real link to heroku to the eventsource
   source = new EventSource(`http://localhost:8888/room`);
   componentDidMount() {
     console.log("got here?",this.source)
@@ -32,11 +33,13 @@ class RoomsContainer extends Component {
       [event.target.name]: event.target.value
     })
   }
-
-
+  onClick=(event)=>{
+    event.preventDefault()
+    this.props.joinRoom(event.target.innerHTML, this.props.loginState.user)
+  }
 
   render() {
-    console.log('roomstate in render method', this.props.roomState)
+    //console.log('roomstate in render method', this.props.roomState)
 
     return ((this.props.loginState.jwt) ?
 
@@ -44,6 +47,7 @@ class RoomsContainer extends Component {
         <Rooms 
         onSubmit={this.onSubmit}
         onChange={this.onChange}
+        onClick={this.onClick}
         values={this.state} 
         roomState={this.props.roomState}/>    
       </div>
@@ -64,4 +68,4 @@ const mapStateToProps =(state)=>{
 
 }
 
-export default connect(mapStateToProps, {addRoom, getRooms, updateRooms})(RoomsContainer)
+export default connect(mapStateToProps, {addRoom, getRooms, updateRooms, joinRoom})(RoomsContainer)
