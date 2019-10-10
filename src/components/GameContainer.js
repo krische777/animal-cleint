@@ -8,7 +8,7 @@ import { userEvade } from "../action";
 class GameContainer extends Component {
   state = { HP: "", SP: "" };
   onClick = event => {
-    // event.preventDefault();
+   
     switch (event.target.value) {
       case "Attack":
         return this.props.userAttack(this.state.HP, this.state.SP);
@@ -20,10 +20,15 @@ class GameContainer extends Component {
         return;
     }
   };
+ roomName=(event)=>{
+console.log(event.target)
+  }
 
   render() {
+      
     return (
       <div>
+        <h3>{`Your name: ${this.props.userName}`}</h3>
         <Game onClick={this.onClick} values={this.state} />
       </div>
     );
@@ -31,8 +36,10 @@ class GameContainer extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log('AAA',state.roomReducer)
   return {
-    user: state.reducer
+    userName: state.loginReducer.userName,
+    status: state.roomReducer
   };
 };
 

@@ -11,13 +11,8 @@ class SignupFormContainer extends Component {
 
   onSubmit = (event) => {
     event.preventDefault()
-    this.props.addUser(this.state.firstName, this.state.email, this.state.password) // takes a while
-    //if(this.props.status===200){
-      // this.props.history.push('/login') // sync 
-    //}
-    this.setState({firstName:'', email: '', password: '' })
-    console.log('this props user ', this.props.user)
-  }
+    this.props.addUser(this.state.firstName, this.state.email, /*this.state.password*/)
+    this.setState({firstName:'', email: '', password: '' })  }
 
   onChange = (event) => {
     this.setState({

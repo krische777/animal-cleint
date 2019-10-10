@@ -22,14 +22,11 @@ export const userLogin = (email, password) => (dispatch) => {
     .post(`${url}/login`)
     .send({ email, password })
     .then(res => {
-      console.log('log res:', res.body)
+      // console.log('log res:', res.body)
       const action = login(res.body)
       dispatch(action)
     })
-    .catch(error => {
-      // console.error;
-      console.log('error:', error.response.body) 
-    })
+    .catch(error => console.log(error))
 }
 
 function signUp(payload) {
@@ -54,12 +51,12 @@ export const addUser = (firstName, email, password) => (dispatch) => {
     })
 }
 
-function room(payload) {
-  return {
-    type: ADD_ROOM,
-    payload: payload
-  }
-}
+// function room(payload) {
+//   return {
+//     type: ADD_ROOM,
+//     payload: payload
+//   }
+// }
 
 export const addRoom = (roomName) => (dispatch, getState) => {
   const state=getState()
@@ -71,9 +68,9 @@ export const addRoom = (roomName) => (dispatch, getState) => {
     .set('Authorization', `Bearer ${jwt}`)
     .send({ name: roomName})
     .then(res => {
-      //const action = room(res.body)
+      // const action = room(res.body)
       console.log(res.body)
-      //dispatch(action)
+      // dispatch(action)
     })
     .catch(console.error)
 }
@@ -186,4 +183,3 @@ export const joinRoom=(room_name, user_id)=>(dispatch, getState)=>{
      .catch(console.error)
 
 }
-

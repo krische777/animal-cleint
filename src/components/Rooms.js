@@ -8,12 +8,14 @@ export default class Rooms extends Component {
   render() {
     // console.log('available rooms',JSON.stringify(this.props.roomState))
     return (
+      
       <div>
         <h3>Available rooms: You can join by clicking on the room name</h3>
+        
         <ul style={{listStyleType:"none"}}>{this.props.roomState.map(room=> {
           //take the userid and roomid from onclick on the button
-          return <li key={room.id} ><button onClick={this.props.onClick} ><Link to="/game">{room.name}</Link></button>- {room.status}</li>
-        })}</ul>
+      return <li key={room.id} ><button onClick={this.props.onClick} >{(room.status==="FULL")?`${room.name}`:<Link to="/game">{room.name}</Link>}</button>- {room.status}</li>
+     })}</ul>
         <h3>Create a new room</h3>
 
         <form onSubmit={this.props.onSubmit}>

@@ -9,13 +9,13 @@ class RoomsContainer extends Component {
   //should put the real link to heroku to the eventsource
   source = new EventSource(`http://localhost:8888/room`);
   componentDidMount() {
-    console.log("got here?",this.source)
+    // console.log("got here?",this.source)
     // this.props.getRooms()
     //console.log("component did mount",this.source)
     this.source.onmessage = event => {
-      console.log('got an event?', event.data)
+      // console.log('got an event?', event.data)
       const messages = JSON.parse(event.data);
-      console.log("data is:",messages)
+      // console.log("data is:",messages)
       this.props.updateRooms(messages);
     };
   }
@@ -58,7 +58,7 @@ class RoomsContainer extends Component {
 }
 
 const mapStateToProps =(state)=>{
-  console.log('mapstate to props state', state)
+  // console.log('mapstate to props state', state)
 
   return {
      roomState: state.roomReducer,
