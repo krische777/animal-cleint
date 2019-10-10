@@ -7,6 +7,9 @@ import Home from './components/Home'
 import LoginFormContainer from './components/LoginFormContainer'
 import SignupFormContainer from './components/SignupFormContainer';
 import RoomsContainer from './components/RoomsContainer';
+import GameContainer from './components/GameContainer'
+import Waiting from './components/Waiting'
+import Winner from './components/Winner'
 
 class App extends React.Component{
   render(){
@@ -18,6 +21,9 @@ class App extends React.Component{
             <Route path="/signup" component={SignupFormContainer}/>
             <Route path="/login" component={LoginFormContainer} />
             <Route path="/lobby" component={RoomsContainer} />
+            <Route path="/game" component = {GameContainer} />
+            <Route path="/waiting" component = {Waiting} />
+            <Route path="/winner" component = {Winner} />
           </header>
         </div>
       </Provider>
