@@ -9,7 +9,7 @@ import {Redirect} from "react-router";
 class GameContainer extends Component {
     state = {HP: "", SP: ""};
 
-    source = new EventSource(`http://localhost:8888/room`);
+    source = new EventSource(`https://young-fjord-22785.herokuapp.com/room`);
 
 
     componentDidMount() {
@@ -65,11 +65,7 @@ const mapStateToProps = state => {
         loginState: state.loginReducer,
         //i take the gamestate to take the game id from it
         gameState: state.gameReducer
-        //to get the game id inside this component use this.props.gameState.id,
-        //to get the health of player this.props.gameState.healthp1
-        //to get the health of player this.props.gameState.healthp2
-        //to get the id of player 1 in the game his.props.gameState.firstPlayer
-        //to get the id of player 2 in the game his.props.gameState.firstPlayer
+       
     };
 };
 

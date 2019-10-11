@@ -7,7 +7,7 @@ import {Redirect} from 'react-router-dom'
 class RoomsContainer extends Component {
     state = {roomName: ''}
     //should put the real link to heroku to the eventsource
-    source = new EventSource(`http://localhost:8888/room`);
+    source = new EventSource(`https://young-fjord-22785.herokuapp.com/room`);
 
     componentDidMount() {
         console.log("got here?", this.source)

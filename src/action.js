@@ -9,7 +9,7 @@ export const ATTACK = "ATTACK"
 // export const EVADE = "EVADE"
 export const JOIN_ROOM='JOIN_ROOM'
 
-const url = 'http://localhost:8888'
+const url = 'https://young-fjord-22785.herokuapp.com'
 
 function login(payload) {
     return {
