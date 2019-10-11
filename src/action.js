@@ -132,42 +132,6 @@ export const getGames = () => (dispatch, getState) => {
         .catch(console.error)
 }
 
-// function defense(payload) {
-//   return {
-//     type: DEFENSE,
-//     payload: payload
-//   }
-// }
-
-// export const userDefense = (HP,SP) => (dispatch) => {
-//   request
-//     .put(`${url}/game`)
-//     .set({ HP, SP })
-//     .then(res => {
-//       const action = defense(res.body)
-//       dispatch(action)
-//     })
-//     .catch(console.error)
-// }
-
-// function evade(payload) {
-//   return {
-//     type: EVADE,
-//     payload: payload
-//   }
-// }
-
-// export const userEvade = (HP,SP) => (dispatch) => {
-//   request
-//     .put(`${url}/game`)
-//     .set({ HP, SP })
-//     .then(res => {
-//       const action = evade(res.body)
-//       dispatch(action)
-//     })
-//     .catch(console.error)
-// }
-
 
 function joinRoomAction(payload) {
     return {
@@ -206,11 +170,12 @@ function attack(payload) {
 }
 
 export const fighterAction = (action, user_id, game_id) => (dispatch) => {
-    console.log("Action and user id", action, user_id)
+    console.log("Action and user id", {action, user_id}, game_id)
     request
-        .put(`${url}/game/fight`)
+        .put(`${url}/room/fight`)
         .send({fightAction:action, userId: user_id, gameId: game_id})
         .then(res => {
+            console.log('room/fight', res.body.data)
             const action = attack(res.body.data)
             dispatch(action)
         })

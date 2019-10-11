@@ -19,6 +19,7 @@ class RoomsContainer extends Component {
             //parse data from nested object
             if(messages.type.startsWith("ROOM_")){
                 let rooms = JSON.parse(messages.data);
+                console.log('UPDATING ROOMS IN ROOMSCONTAINER')
                 this.props.updateRooms(rooms);
             }
         };

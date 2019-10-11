@@ -11,15 +11,22 @@ class GameContainer extends Component {
 
     source = new EventSource(`http://localhost:8888/room`);
 
+
     componentDidMount() {
         this.source.onmessage = event => {
-            const messages = JSON.parse(event.data);
+          const messages = JSON.parse(event.data);
+          const data = messages.data //JSON.parse(messages.data)
+          
+          
+
+          console.log('Received game data', messages)
             if (messages.type === ("GAME_CREATED")) {
-                console.log('data received in game container create', messages.data)
-                this.props.updateGames(messages.data);
+                console.log('data received in game container create', data)
+                
+                this.props.updateGames(data);
             } else if (messages.type === ("GAME_PLAYER_ATTACKED")) {
-                console.log('data received in game container attack', messages.data)
-                this.props.updateGames(messages.data);
+                console.log('data received in game container attack', data)
+                this.props.updateGames(data);
             }
         };
 
@@ -32,7 +39,7 @@ class GameContainer extends Component {
     onClick = event => {
         // event.preventDefault();
         //console.log('game id', event.target.value)
-        console.log(this.props.gameState.id)
+        console.log('game id in GAMECONTAINER',this.props.gameState)
 
 
         this.props.fighterAction(event.target.value,
