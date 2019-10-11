@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
-class Waiting extends Component {
+export default class Waiting extends Component {
     render() {
         return (
             <div>
@@ -11,5 +10,3 @@ class Waiting extends Component {
         )
     }
 }
-
-export default connect  (Waiting)
